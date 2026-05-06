@@ -51,15 +51,11 @@ Every artifact corresponds to a single row in `manifest.parquet`. The full schem
 - `pool`, `family`, `tier`, `variant` — classification
 - `source_dataset`, `source_artifact_id`, `source_license` — substrate provenance (null for Tier 4)
 - `tool_family`, `tool_version`, `prompt`, `edit_regions` — generation provenance
-- `identity_seed`, `style_pool_index`, `letterhead_seed` — per-item seeds for ablation
+- `identity_seed`, `style_pool_index`, `letterhead_seed` — per-item seeds
 - `intended_evidentiary_role` — free-text description
 - `provenance_marker_confirmed` — boolean
 
 The seeds support the ablation studies described in the paper. Regenerating the corpus with substituted identities, letterheads, fonts, or style pools while keeping other factors fixed allows direct attribution of detector performance to specific factors.
-
-## Provenance markers
-
-Every artifact, clean or manipulated, carries three redundant markers identifying it as corpus material: an EXIF/XMP tag with key `synthetic-evidence-corpus` and value `true` for images that retain metadata; a steganographic flag for images whose EXIF would be stripped by downstream processing; and a sentinel hash logged in the manifest. At least one marker is designed to survive a re-save through a consumer image editor. Markers are applied identically to clean and manipulated items, so they do not interfere with detector training.
 
 ## License
 
