@@ -1,0 +1,366 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "CIFAR Synthetic Evidence Corpus",
+  "alternateName": ["CIFAR Synthetic Evidence Corpus"],
+  "description": "The CIFAR Synthetic Evidence Corpus is a benchmark for detecting AI-manipulated documentary evidence. The corpus comprises 2,490 artifacts spanning three documentary-evidence families (receipts, emails, and business and administrative documents), four manipulation sophistication tiers (single-field edits, forged handwriting, inserted content, whole fabrication), and four generator families (GPT-4o + gpt-image-1, Gemini 2.5, Ideogram 3.0, and an open-weights diffusion stack). Training and test pools are constructed from disjoint source corpora so that any generalisation gap observed at evaluation reflects substrate shift rather than item-level memorisation. Every artifact carries a Parquet manifest entry recording the generator, the prompt, and per-item seeds for identity, signature style, and letterhead, supporting ablation studies of shortcut-leakage controls. Every artifact also carries a redundant provenance marker (EXIF/XMP tag, steganographic flag, sentinel hash) so that no corpus item can be mistaken for genuine evidence if it escapes the research environment.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "license": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+  "url": "https://github.com/UofT-CIFAR/cifar-synthetic-evidence-corpus",
+  "version": "0.1.0",
+  "datePublished": "2026-01-01",
+  "keywords": [
+    "synthetic content detection",
+    "document forgery detection",
+    "AI-generated content",
+    "benchmark dataset",
+    "digital forensics",
+    "shortcut learning"
+  ],
+  "creator": [
+    {"@type": "Person", "name": "Kelly McConvey"},
+    {"@type": "Person", "name": "Jalehsadat Mahdavimoghaddam"},
+    {"@type": "Person", "name": "Sajad Ebrahimi"},
+    {"@type": "Person", "name": "Maksym Taranukhin"},
+    {"@type": "Person", "name": "Jacquelyn Burkell"},
+    {"@type": "Person", "name": "Yuntian Deng"},
+    {"@type": "Person", "name": "Karen Eltis"},
+    {"@type": "Person", "name": "Maura Grossman"},
+    {"@type": "Person", "name": "Mathias Lecuyer"},
+    {"@type": "Person", "name": "Vered Shwartz"},
+    {"@type": "Person", "name": "Ebrahim Bagheri"}
+  ],
+  "publisher": {
+    "@type": "Organization",
+    "name": "GitHub"
+  },
+  "citeAs": "@data{cifar_sec_2026, author = {McConvey, Kelly and Mahdavimoghaddam, Jalehsadat and Ebrahimi, Sajad and Taranukhin, Maksym and Burkell, Jacquelyn and Deng, Yuntian and Eltis, Karen and Grossman, Maura and Lecuyer, Mathias and Shwartz, Vered and Bagheri, Ebrahim}, title = {{CIFAR Synthetic Evidence Corpus}}, publisher = {GitHub}, year = {2026}, version = {v0.1.0}, url = {https://github.com/UofT-CIFAR/cifar-synthetic-evidence-corpus}}",
+  "isLiveDataset": false,
+
+  "rai:dataCollection": "Authentic source documents are drawn from eleven publicly available corpora partitioned into disjoint training and test pools. Receipts are sourced from SROIE, CORD-v2, and Find It Again!; emails in the training pool from the Enron Email Corpus and the email class of RVL-CDIP, with the test pool drawn exclusively from the Avocado Research Email Collection (LDC2015T03); business and administrative documents from the non-email classes of RVL-CDIP and DUDE in training, and from the letter, memo, and report subsets of the UCSF Industry Documents Library in test. Manipulated artifacts are produced by a two-stage pipeline applying four sophistication tiers across four generator families, with all generation parameters and per-item seeds recorded in the manifest.",
+  "rai:dataBiases": "The substrate corpora carry inherited demographic and domain skews. RVL-CDIP and the UCSF Industry Documents Library originate from US tobacco, food, fossil fuel, and opioid litigation, biasing the business-document pool toward US corporate-malfeasance contexts. The Enron and Avocado email corpora reflect the demographic and linguistic profiles of a single US energy company (c.2000-2002) and a single US IT company (c.2000-2004) respectively. All substrates and all generated content are in English. The corpus does not currently support evaluation of cross-document consistency, stacked manipulations, or multilingual content; see the paper's Limitations section for further discussion.",
+  "rai:dataUseCases": "Intended use cases include: training and evaluating detectors of AI-manipulated documentary evidence; ablation studies isolating the contribution of specific shortcut-leakage controls (per-item identities, signature style pools, parametric letterheads, balanced format fingerprints); cross-generator generalisation studies; and calibration and out-of-distribution benchmarking. The corpus is not intended as a substitute for an audit against real-world evidentiary fraud, and detector performance on the corpus should be read as a necessary but not sufficient condition for deployment readiness.",
+  "rai:dataLimitations": "The corpus covers three document families, one language, and a single manipulation per item; court filings, medical records, financial statements, non-English substrates, and stacked manipulations are not included. With the exception of the 163 pre-labelled forgeries from Find It Again! (retained as tier=external_labeled), all manipulated items are synthetic rather than drawn from real-world fraud. Variants A-C use commercial APIs (GPT-4o + gpt-image-1, Gemini 2.5, Ideogram 3.0) whose underlying models change without notice; exact model versions are pinned in tools.yaml and per-item versions are recorded in the manifest, but artifacts cannot be regenerated identically once provider models drift. Variant D (Flux.1-Fill / SD3 Medium) is the only branch fully reproducible without commercial-provider cooperation. The lab-to-wild gap documented for face-deepfake detectors (~45 AUC points) has not been quantified for documentary-evidence detection but is unlikely to be smaller; performance on the corpus's test pool is an upper bound on performance under realistic deployment conditions.",
+  "rai:personalSensitiveInformation": "Substrate corpora include real personal identifiers (names, email addresses, organisational affiliations) inherited from their source datasets. Manipulated artifacts that retain real identifiers from substrates are the highest-risk items in the corpus. Generated identities (used in Tier 4 fabrications and elsewhere) are produced fresh per item via a Faker-based identity library seeded deterministically from the item seed and do not correspond to real persons.",
+  "rai:hasSyntheticData": true,
+  "rai:dataSocialImpact": "The corpus is intended to support the development of detection infrastructure for AI-manipulated documentary evidence in legal and adjudicative settings, with the broader goal of mitigating the access-to-justice gap created by widely available generative AI tools. Self-represented and under-resourced litigants are simultaneously the population most likely to encounter fabricated submissions and the population least equipped to detect them; better detection infrastructure may help reduce this asymmetry. The corpus also carries dual-use risk. Manipulated artifacts could in principle be misused to deceive recipients into treating them as genuine evidence. Three mitigations are applied to every artifact: a redundant provenance marker (EXIF/XMP tag, steganographic flag, sentinel hash) designed so that at least one marker survives a re-save through a consumer image editor; deterministic generation via per-item Faker identities that do not correspond to real persons; and explicit documentation of the synthetic nature of every item in this metadata file and the accompanying paper. Detector performance on the corpus should not be read as evidence of deployment readiness for evidentiary use; the lab-to-wild gap and the difference between synthetic and real-world fraud are documented limitations.",
+
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "manifest.parquet",
+      "name": "manifest.parquet",
+      "description": "Single-row-per-artifact manifest recording the source artifact ID (null for Tier 4), the source dataset and license, the tool family and pinned model version, the full prompt where applicable, pixel or character edit regions, the identity_seed, style_pool_index (Tier 2), letterhead_seed (Tier 4), the intended_evidentiary_role, the provenance marker confirmation, and a SHA-256 of the final file.",
+      "contentUrl": "https://github.com/UofT-CIFAR/cifar-synthetic-evidence-corpus/releases/download/v0.1.0/manifest.parquet",
+      "encodingFormat": "application/vnd.apache.parquet",
+      "sha256": "TODO-COMPUTE-SHA256-OF-MANIFEST"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "tools.yaml",
+      "name": "tools.yaml",
+      "description": "Pinned generator versions for every artifact. Maps tool variants (A-D) to exact model identifiers and version strings.",
+      "contentUrl": "https://github.com/UofT-CIFAR/cifar-synthetic-evidence-corpus/releases/download/v0.1.0/tools.yaml",
+      "encodingFormat": "application/yaml",
+      "sha256": "TODO-COMPUTE-SHA256-OF-TOOLS-YAML"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "corpus-archive",
+      "name": "corpus-archive",
+      "description": "Tarball containing the full corpus: manifest.parquet, tools.yaml, and the data/ directory of artifacts.",
+      "contentUrl": "https://github.com/UofT-CIFAR/cifar-synthetic-evidence-corpus/releases/download/v0.1.0/corpus-v0.1.0.tar.gz",
+      "encodingFormat": "application/gzip",
+      "sha256": "TODO-COMPUTE-SHA256-OF-CORPUS-ARCHIVE"
+    },
+    {
+      "@type": "cr:FileSet",
+      "@id": "artifacts",
+      "name": "artifacts",
+      "description": "Document artifacts (PDF, PNG, JPG) named by batch code <POOL>-<FAMILY>-<TIER>-<VARIANT>-item_<NNN>.<ext>, where POOL is TRN or TST, FAMILY is RCT/EML/DOC, TIER is T0-T4 (T0 = clean controls), and VARIANT is A-D (omitted for clean controls).",
+      "containedIn": {"@id": "corpus-archive"},
+      "encodingFormat": ["application/pdf", "image/png", "image/jpeg"],
+      "includes": "corpus-v0.1.0/data/*"
+    }
+  ],
+
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "items",
+      "name": "items",
+      "description": "One row per artifact in the corpus, joining the manifest entries with their corresponding files in the artifacts FileSet.",
+      "key": {"@id": "items/sha256"},
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "items/artifact_id",
+          "name": "artifact_id",
+          "description": "Unique identifier for the artifact, formatted as <POOL>-<FAMILY>-<TIER>-<VARIANT>-item_<NNN>.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {"@id": "manifest.parquet"},
+            "extract": {"column": "artifact_id"}
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "items/sha256",
+          "name": "sha256",
+          "description": "SHA-256 of the final artifact file.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {"@id": "manifest.parquet"},
+            "extract": {"column": "sha256"}
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "items/pool",
+          "name": "pool",
+          "description": "Pool assignment: TRN (training) or TST (test).",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {"@id": "manifest.parquet"},
+            "extract": {"column": "pool"}
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "items/family",
+          "name": "family",
+          "description": "Document family: RCT (receipt), EML (email), or DOC (business or administrative document).",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {"@id": "manifest.parquet"},
+            "extract": {"column": "family"}
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "items/tier",
+          "name": "tier",
+          "description": "Manipulation sophistication tier: T0 (clean), T1 (small edits), T2 (forged handwriting), T3 (inserted content), T4 (whole fabrication), or external_labeled (Find It Again! calibration items).",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {"@id": "manifest.parquet"},
+            "extract": {"column": "tier"}
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "items/variant",
+          "name": "variant",
+          "description": "Generator variant: A (GPT-4o + gpt-image-1), B (Gemini 2.5), C (Ideogram 3.0), or D (open-weights diffusion: Flux.1-Fill or SD3 Medium). Null for clean controls and external_labeled items.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {"@id": "manifest.parquet"},
+            "extract": {"column": "variant"}
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "items/source_artifact_id",
+          "name": "source_artifact_id",
+          "description": "Identifier of the substrate artifact from which this item was constructed. Null for Tier 4 (whole fabrication) items.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {"@id": "manifest.parquet"},
+            "extract": {"column": "source_artifact_id"}
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "items/source_dataset",
+          "name": "source_dataset",
+          "description": "Name of the source corpus from which the substrate was drawn (e.g., SROIE, CORD-v2, Enron, Avocado, RVL-CDIP, DUDE, UCSF). Null for Tier 4.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {"@id": "manifest.parquet"},
+            "extract": {"column": "source_dataset"}
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "items/source_license",
+          "name": "source_license",
+          "description": "License of the source dataset. Null for Tier 4.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {"@id": "manifest.parquet"},
+            "extract": {"column": "source_license"}
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "items/tool_family",
+          "name": "tool_family",
+          "description": "Generator family used to produce the manipulation (GPT, Gemini, Ideogram, or StableDiffusion).",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {"@id": "manifest.parquet"},
+            "extract": {"column": "tool_family"}
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "items/tool_version",
+          "name": "tool_version",
+          "description": "Pinned model version used to produce this item. Cross-references tools.yaml.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {"@id": "manifest.parquet"},
+            "extract": {"column": "tool_version"}
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "items/prompt",
+          "name": "prompt",
+          "description": "Full text of the prompt passed to the generator, where applicable. Null for Tier 1 mechanical edits and clean controls.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {"@id": "manifest.parquet"},
+            "extract": {"column": "prompt"}
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "items/edit_regions",
+          "name": "edit_regions",
+          "description": "Pixel-region (for image edits) or character-offset (for text edits) coordinates of the manipulated areas.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {"@id": "manifest.parquet"},
+            "extract": {"column": "edit_regions"}
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "items/identity_seed",
+          "name": "identity_seed",
+          "description": "Deterministic seed used to generate per-item Faker identities (names, employers, addresses, account numbers).",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {"@id": "manifest.parquet"},
+            "extract": {"column": "identity_seed"}
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "items/style_pool_index",
+          "name": "style_pool_index",
+          "description": "Index into the 200-style signature/handwriting pool (Tier 2 only). Indices 0-149 are training styles; 150-199 are test styles. Null for non-Tier-2 items.",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {"@id": "manifest.parquet"},
+            "extract": {"column": "style_pool_index"}
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "items/letterhead_seed",
+          "name": "letterhead_seed",
+          "description": "Deterministic seed for the parametric letterhead generator (Tier 4 only). Null for non-Tier-4 items.",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {"@id": "manifest.parquet"},
+            "extract": {"column": "letterhead_seed"}
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "items/intended_evidentiary_role",
+          "name": "intended_evidentiary_role",
+          "description": "Free-text description of the evidentiary role the artifact is intended to play (e.g., 'date-altered receipt to support a claimed expense', 'fabricated employment letter', 'forged signature on contract').",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {"@id": "manifest.parquet"},
+            "extract": {"column": "intended_evidentiary_role"}
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "items/provenance_marker_confirmed",
+          "name": "provenance_marker_confirmed",
+          "description": "Boolean confirmation that the redundant provenance marker (EXIF/XMP tag, steganographic flag, sentinel hash) was successfully applied and verified at corpus-build time.",
+          "dataType": "sc:Boolean",
+          "source": {
+            "fileObject": {"@id": "manifest.parquet"},
+            "extract": {"column": "provenance_marker_confirmed"}
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "items/filename",
+          "name": "filename",
+          "description": "Filename of the artifact relative to the data/ directory. Joins manifest entries with their corresponding files in the artifacts FileSet.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {"@id": "manifest.parquet"},
+            "extract": {"column": "filename"}
+          },
+          "references": {
+            "fileSet": {"@id": "artifacts"},
+            "extract": {"fileProperty": "filename"}
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "items/file",
+          "name": "file",
+          "description": "The artifact file itself.",
+          "dataType": "sc:ImageObject",
+          "source": {
+            "fileSet": {"@id": "artifacts"},
+            "extract": {"fileProperty": "content"}
+          }
+        }
+      ]
+    }
+  ]
+}
